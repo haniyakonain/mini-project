@@ -1,0 +1,155 @@
+<html lang="en" dir="ltr">
+   <head>
+        <title>Login Page</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <script src="../static/js/script.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+        <script>
+            addEventListener("load", function () {
+                setTimeout(hideURLbar, 0);
+            }, false);
+
+            function hideURLbar() {
+                window.scrollTo(0, 1);
+            }
+
+            function login(){
+                var uname = document.getElementById("uname").value;
+                var pwd = document.getElementById("pwd").value;
+
+                if(uname == "user" && pwd == "password") {
+                    alert("Login Success..!");
+                    window.location = "{{url_for('index')}}";
+                    return false;
+                } else {
+                    alert("Enter Details..!")
+                }
+            }
+        </script>
+   </head>
+
+   <body>
+        <!-- Container for the page layout -->
+        <div class="container-fluid d-flex" style="height: 100vh;">
+            <!-- Left side image section -->
+            <div class="col-md-6 left-section">
+                <img src="{{ url_for('static', filename='a9.jpg')}}" class="img-fluid">
+            </div>
+
+            <!-- Right side login form section -->
+            <div class="col-md-6 right-section d-flex justify-content-center align-items-center">
+                <div class="login-form">
+                    <h2>Login Form</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="email">Email address:</label>
+                            <input type="email" class="form-control" id="uname" required="enter email id" name="uname" value="{{ request.form.email }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd" id="pas">Password:</label>
+                            <input type="password" id="pwd" class="form-control" name="pwd" value="{{ request.form.password }}">
+                        </div>
+                        <button type="submit" class="btn btn-primary" onclick="login()" name="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- CSS Styling -->
+        <style>
+            /* Body and general layout */
+            body {
+                margin: 0;
+                font-family: Arial, sans-serif;
+            }
+
+            .container-fluid {
+                padding: 0;
+            }
+
+            /* Left section styling */
+            .left-section {
+                background-color: #f0f0f0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+            }
+
+            .left-section img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            /* Right section styling */
+            .right-section {
+                background-color: #ffffff;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                padding: 20px;
+            }
+
+            .login-form {
+                width: 80%;
+                max-width: 400px;
+                background-color: #f9f9f9;
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .login-form h2 {
+                text-align: center;
+                margin-bottom: 20px;
+                font-size: 24px;
+                color: #333;
+            }
+
+            .form-group label {
+                font-size: 16px;
+                font-weight: 600;
+                color: #555;
+            }
+
+            .form-control {
+                width: 100%;
+                padding: 12px;
+                font-size: 16px;
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            .btn-primary {
+                background-color: #d8a1d8;
+                border-color: #ea1bcb;
+                width: 100%;
+                padding: 12px;
+                font-size: 18px;
+                border-radius: 5px;
+            }
+
+            .btn-primary:hover {
+                background-color: #e74abd;
+                border-color: #cf17a4;
+            }
+
+            /* Responsiveness */
+            @media (max-width: 768px) {
+                .left-section img {
+                    height: 300px;
+                }
+
+                .login-form {
+                    padding: 20px;
+                }
+            }
+        </style>
+   </body>
+</html>
