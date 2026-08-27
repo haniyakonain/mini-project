@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Dataset - Multiple Types of Cancer{% endblock %}
+{% block content %}
+
+<section class="hero" style="padding-top:60px;">
+  <span class="eyebrow">📊 Training Data</span>
+  <h1>The <span>dataset</span> behind the model</h1>
+  <p>Every image below is pulled live from the project's training set - nothing here is staged, it's the real data the VGG19 model learned from.</p>
+</section>
+
+<div class="stat-row animate-in">
+  <div class="glass-card stat-card">
+    <div class="num">{{ total_images }}</div>
+    <div class="lbl">Total images</div>
+  </div>
+  <div class="glass-card stat-card">
+    <div class="num">4</div>
+    <div class="lbl">Cancer classes</div>
+  </div>
+  {% for c in classes %}
+  <div class="glass-card stat-card">
+    <div class="num">{{ c.train_count }}</div>
+    <div class="lbl">{{ c.label }} (train)</div>
+  </div>
+  {% endfor %}
+</div>
+
+{% for c in classes %}
+<div class="glass-card class-block animate-in">
+  <div class="class-head">
+    <h3>{{ c.label }}</h3>
+    <div class="class-counts">
+      <span class="pill">{{ c.train_count }} train</span>
+      <span class="pill">{{ c.test_count }} test</span>
+    </div>
+  </div>
+  <div class="class-bar cb-{{ c.slug }}">
+    <div class="class-bar-fill" data-fill="{{ (c.train_count / max_count * 100) | round(1) }}"></div>
+  </div>
+  <div class="sample-grid">
+    {% for sample in c.samples %}
+    <img src="{{ url_for('dataset_image', slug=c.slug, filename=sample) }}" alt="{{ c.label }} sample" loading="lazy">
+    {% endfor %}
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}

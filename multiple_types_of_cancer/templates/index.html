@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Detect - Multiple Types of Cancer{% endblock %}
+{% block content %}
+
+<section class="hero" style="padding-top:60px;">
+  <span class="eyebrow">Detection</span>
+  <h1>Upload a scan for <span>instant analysis</span></h1>
+  <p>Provide a CT or MRI image and the model will classify it across brain, breast, cervical and lung cancer.</p>
+</section>
+
+<div class="glass-card upload-shell animate-in">
+  <form action="{{ url_for('predicted') }}" method="POST" enctype="multipart/form-data" id="upload-form">
+    <div class="dropzone" id="dropzone">
+      <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#8a72d6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>
+      </svg>
+      <div class="dz-title">Drag &amp; drop your image here</div>
+      <div class="dz-sub">or click to browse - JPG, PNG, BMP up to 16MB</div>
+      <input type="file" name="imagefile" id="imagefile" accept=".png,.jpg,.jpeg,.gif,.bmp" hidden required>
+    </div>
+
+    <div id="preview-wrap" hidden>
+      <img id="preview-image" src="" alt="Preview of the selected image">
+    </div>
+    <span class="file-chip" id="file-name" hidden></span>
+
+    <div style="margin-top: 28px;">
+      <button class="btn btn-primary" type="submit" id="submit-btn" disabled>Analyze Image</button>
+    </div>
+  </form>
+</div>
+
+<div class="section-head animate-in">
+  <span class="eyebrow">No scan on hand?</span>
+  <h2>Try it on a real dataset image</h2>
+  <p>Not everyone has access to CT/MRI scans of their own - pick any image below and it runs through the same model instantly.</p>
+</div>
+
+<div class="glass-card sample-picker animate-in">
+  <div class="picker-tabs">
+    {% for c in sample_classes %}
+    <button type="button" class="picker-tab {% if loop.first %}active{% endif %}" data-target="panel-{{ c.slug }}">{{ c.label }}</button>
+    {% endfor %}
+  </div>
+
+  {% for c in sample_classes %}
+  <div class="picker-panel {% if loop.first %}active{% endif %}" id="panel-{{ c.slug }}">
+    <div class="picker-count">{{ c.count }} images in the {{ c.label }} training set - click any to run detection</div>
+    <div class="picker-grid">
+      {% for f in c.files %}
+      <a href="{{ url_for('predict_sample', slug=c.slug, filename=f) }}" title="Run detection on this {{ c.label }} sample">
+        <img src="{{ url_for('dataset_image', slug=c.slug, filename=f) }}" alt="{{ c.label }} sample" loading="lazy">
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}
+{% block extra_scripts %}
+<script>initUploader(); initPicker();</script>
+{% endblock %}

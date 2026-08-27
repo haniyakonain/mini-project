@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}About - Multiple Types of Cancer{% endblock %}
+{% block content %}
+
+<section class="hero" style="padding-top:60px;">
+  <span class="eyebrow">About This Project</span>
+  <h1>What <span>Multiple Types of Cancer</span> actually does</h1>
+  <p>A short walkthrough of the problem, the approach, and the results - for anyone reviewing this as a mini-project.</p>
+</section>
+
+<div class="glass-card animate-in">
+  <p class="about-lede">
+    Cancer is the second leading cause of death worldwide, and early detection consistently
+    improves outcomes. This project explores whether a single convolutional network can be
+    trained to recognize <strong>four different cancer types</strong> - brain, breast, cervical,
+    and lung - from CT/MRI style imagery, instead of building one narrow model per disease.
+    The result is a working end-to-end system: a trained classifier wrapped in a small web
+    application where anyone can upload a scan (or try a real sample from the dataset) and see
+    a prediction with a full confidence breakdown.
+  </p>
+  <div class="pill-row">
+    <span class="tech-pill">Python</span>
+    <span class="tech-pill">Flask</span>
+    <span class="tech-pill">TensorFlow / Keras</span>
+    <span class="tech-pill">VGG19</span>
+    <span class="tech-pill">Transfer Learning</span>
+    <span class="tech-pill">Bayesian Optimization</span>
+    <span class="tech-pill">Learning Without Forgetting</span>
+    <span class="tech-pill">HTML / CSS / JS</span>
+  </div>
+</div>
+
+<div class="about-grid">
+  <div class="glass-card animate-in">
+    <div class="section-head" style="margin: 0 0 6px; text-align: left;">
+      <h2 style="font-size:1.3rem;">How it was built</h2>
+    </div>
+    <ol class="step-list">
+      <li><strong>Data preparation</strong> - CT/MRI images for each cancer type were collected, cleaned, and split into training and test sets, then resized and normalized for the network.</li>
+      <li><strong>Transfer learning</strong> - a VGG19 network pretrained on ImageNet was used as the feature backbone, then fine-tuned on the four cancer classes instead of training a network from scratch.</li>
+      <li><strong>Bayesian hyperparameter optimization</strong> - learning rate, batch size, and layer-freezing depth were tuned automatically by searching for the configuration that generalized best, rather than guessing by hand.</li>
+      <li><strong>Learning Without Forgetting (LwF)</strong> - used during fine-tuning so the network adapts to the new cancer classes without erasing the general visual features it already learned from ImageNet.</li>
+      <li><strong>Deployment</strong> - the trained model was exported to <code>.h5</code> and wrapped in this Flask application, so predictions run instantly from a browser with no separate setup.</li>
+    </ol>
+  </div>
+
+  <div class="glass-card animate-in">
+    <div class="section-head" style="margin: 0 0 6px; text-align: left;">
+      <h2 style="font-size:1.3rem;">Results</h2>
+    </div>
+    <div class="metric-list">
+      <div class="metric-row"><span class="m-label">Training accuracy</span><span class="m-value">~97.2%</span></div>
+      <div class="metric-row"><span class="m-label">Test accuracy</span><span class="m-value">~94.0%</span></div>
+      <div class="metric-row"><span class="m-label">Cancer types classified</span><span class="m-value">4</span></div>
+      <div class="metric-row"><span class="m-label">Backbone architecture</span><span class="m-value">VGG19</span></div>
+    </div>
+    <p class="general-note" style="margin-top:18px;">
+      These figures come from evaluation on the project's held-out test split. As with any
+      research mini-project, results are meant to demonstrate the approach - not to serve as
+      a validated clinical benchmark.
+    </p>
+  </div>
+</div>
+
+<div class="section-head animate-in">
+  <span class="eyebrow">Explore further</span>
+  <h2>See it in action</h2>
+  <p>Jump straight to the parts that show the project working.</p>
+</div>
+
+<div class="feature-grid animate-in" style="grid-template-columns: repeat(3, 1fr);">
+  <a href="{{ url_for('index') }}" class="glass-card hoverable feature-card" style="text-decoration:none; color:inherit;">
+    <div class="feature-icon" style="background:linear-gradient(135deg,#a88fe0,#8a72d6);">01</div>
+    <h3>Run a detection</h3>
+    <p>Upload a scan, or try one of the dataset samples directly.</p>
+  </a>
+  <a href="{{ url_for('dataset') }}" class="glass-card hoverable feature-card" style="text-decoration:none; color:inherit;">
+    <div class="feature-icon" style="background:linear-gradient(135deg,#7ba3d4,#5f8fc9);">02</div>
+    <h3>Browse the dataset</h3>
+    <p>See per-class counts and real training images for all four cancer types.</p>
+  </a>
+  <a href="{{ url_for('symptoms') }}" class="glass-card hoverable feature-card" style="text-decoration:none; color:inherit;">
+    <div class="feature-icon" style="background:linear-gradient(135deg,#6fbfae,#4fb3a2);">03</div>
+    <h3>Symptoms &amp; stages</h3>
+    <p>A short, plain-language primer on warning signs and how cancer staging works.</p>
+  </a>
+</div>
+
+{% endblock %}

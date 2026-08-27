@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.spyproject/
+
+# Runtime uploads: the app writes user-submitted images here at request
+# time. The pre-shipped demo samples already committed stay tracked; new
+# uploads (which may contain personal screenshots/photos) should not be.
+multiple_types_of_cancer/upload/Screenshot_*
+multiple_types_of_cancer/static/savingimg/Screenshot_*
+multiple_types_of_cancer/upload/back.jpg
+multiple_types_of_cancer/static/savingimg/back.png

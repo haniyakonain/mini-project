@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Multiple Types of Cancer - Mini Project{% endblock %}</title>
+
+<link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% block extra_head %}{% endblock %}
+</head>
+<body>
+
+<div class="blob-field">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="blob b4"></div>
+</div>
+
+<nav class="navbar">
+  <a class="brand" href="{{ url_for('main') }}">
+    <img class="brand-mark" src="{{ url_for('static', filename='favicon.svg') }}" alt="">
+    <span>Multiple Types of Cancer</span>
+  </a>
+  <button class="nav-toggle" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="{{ url_for('main') }}" {% if active == 'home' %}class="active"{% endif %}>Home</a></li>
+    <li><a href="{{ url_for('index') }}" {% if active == 'detect' %}class="active"{% endif %}>Detect</a></li>
+    <li><a href="{{ url_for('dataset') }}" {% if active == 'dataset' %}class="active"{% endif %}>Dataset</a></li>
+    <li><a href="{{ url_for('about') }}" {% if active == 'about' %}class="active"{% endif %}>About</a></li>
+    <li><a href="{{ url_for('symptoms') }}" {% if active == 'symptoms' %}class="active"{% endif %}>Symptoms &amp; Stages</a></li>
+  </ul>
+</nav>
+
+<main class="page">
+{% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+  <p class="footer-credit">
+    <img src="{{ url_for('static', filename='favicon.svg') }}" alt="" class="footer-mark">
+    Designed &amp; developed by <strong>Haniya Konain</strong>
+    <a href="https://github.com/haniyakonain" target="_blank" rel="noopener">github.com/haniyakonain</a>
+  </p>
+  <p>Multiple Types of Cancer - Mini Project · CT/MRI classification with Transfer Learning &amp; VGG19</p>
+  <p>Built for academic research. Not a medical diagnostic device.</p>
+</footer>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% block extra_scripts %}{% endblock %}
+</body>
+</html>

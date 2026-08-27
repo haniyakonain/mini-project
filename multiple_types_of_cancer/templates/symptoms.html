@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Symptoms & Stages - Multiple Types of Cancer{% endblock %}
+{% block content %}
+
+<section class="hero" style="padding-top:60px;">
+  <span class="eyebrow">Awareness</span>
+  <h1>Common <span>symptoms</span> &amp; how staging works</h1>
+  <p>A short, plain-language primer on warning signs for the four cancer types this project studies, and what "stage" means in general.</p>
+</section>
+
+<div class="symptom-grid animate-in">
+  <div class="glass-card hoverable symptom-card st-brain">
+    <h3><span class="symptom-tag">BR</span> Brain Cancer</h3>
+    <ul>
+      <li>Persistent or worsening headaches</li>
+      <li>Seizures with no prior history</li>
+      <li>Blurred or double vision</li>
+      <li>Balance, coordination, or speech difficulty</li>
+      <li>Unexplained memory or personality changes</li>
+    </ul>
+  </div>
+  <div class="glass-card hoverable symptom-card st-breast">
+    <h3><span class="symptom-tag">BC</span> Breast Cancer</h3>
+    <ul>
+      <li>A new lump or area of thickened tissue</li>
+      <li>Change in breast size, shape, or contour</li>
+      <li>Skin dimpling or puckering</li>
+      <li>Nipple discharge, redness, or inversion</li>
+      <li>Persistent, unexplained breast pain</li>
+    </ul>
+  </div>
+  <div class="glass-card hoverable symptom-card st-cervical">
+    <h3><span class="symptom-tag">CX</span> Cervical Cancer</h3>
+    <ul>
+      <li>Abnormal vaginal bleeding between periods</li>
+      <li>Bleeding after intercourse or menopause</li>
+      <li>Unusual or watery vaginal discharge</li>
+      <li>Pelvic pain or pain during intercourse</li>
+    </ul>
+  </div>
+  <div class="glass-card hoverable symptom-card st-lung">
+    <h3><span class="symptom-tag">LU</span> Lung Cancer</h3>
+    <ul>
+      <li>A persistent cough that doesn't go away</li>
+      <li>Coughing up blood, even in small amounts</li>
+      <li>Shortness of breath or chest pain</li>
+      <li>Unexplained weight loss and fatigue</li>
+    </ul>
+  </div>
+</div>
+
+<p class="general-note animate-in">
+  These are general warning signs, not a diagnosis. Many of these symptoms overlap with common,
+  non-cancerous conditions - the only way to know for certain is a proper evaluation by a
+  qualified healthcare professional.
+</p>
+
+<div class="section-head animate-in">
+  <span class="eyebrow">Staging</span>
+  <h2>What "stage" means</h2>
+  <p>Most cancers are described using a 0–IV scale that reflects how far the disease has spread - not how severe any single symptom feels.</p>
+</div>
+
+<div class="stage-track animate-in">
+  <div class="glass-card hoverable stage-card">
+    <div class="stage-num">0</div>
+    <h4>In Situ</h4>
+    <p>Abnormal cells are present but confined to where they first formed.</p>
+  </div>
+  <div class="glass-card hoverable stage-card">
+    <div class="stage-num">I</div>
+    <h4>Early Stage</h4>
+    <p>A small, localized tumor that hasn't spread beyond its origin.</p>
+  </div>
+  <div class="glass-card hoverable stage-card">
+    <div class="stage-num">II</div>
+    <h4>Regional Growth</h4>
+    <p>The tumor is larger or has reached nearby tissue or lymph nodes.</p>
+  </div>
+  <div class="glass-card hoverable stage-card">
+    <div class="stage-num">III</div>
+    <h4>Locally Advanced</h4>
+    <p>Cancer has spread further into surrounding tissue or lymph nodes.</p>
+  </div>
+  <div class="glass-card hoverable stage-card">
+    <div class="stage-num">IV</div>
+    <h4>Metastatic</h4>
+    <p>Cancer has spread to distant organs or parts of the body.</p>
+  </div>
+</div>
+
+{% endblock %}

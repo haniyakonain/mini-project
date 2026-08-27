@@ -1,4 +1,4 @@
-# Multiple Types of Cancer Classification Using CT/MRI Images
+# Multiple Types of Cancer - Mini Project
 
 ## 🔬 Project Overview
 
@@ -54,24 +54,42 @@ Cancer is the second leading cause of death worldwide. Early detection is critic
 
 ```bash
 git clone https://github.com/haniyakonain/mini-project.git
-cd mini-project
+cd mini-project/multiple_types_of_cancer
+python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
+```
+
+### 📁 Project layout
+
+```
+mini-project/
+└── multiple_types_of_cancer/   # the whole app - no more nested CODE/ folder
+    ├── app.py                  # Flask app (routes: /, /index, /dataset, /predicted)
+    ├── model/                  # trained .h5 checkpoints + training notebook
+    ├── dataset/                # train/test images, shown live on the /dataset page
+    ├── static/                 # css, js, uploaded-image previews
+    ├── templates/              # base.html + main/index/dataset/result pages
+    └── upload/                 # raw uploaded scans
 ```
 
 ### 📁 Dataset
 
-* Download the dataset from [Kaggle - Multi-Cancer Dataset](https://www.kaggle.com/datasets/obulisainaren/multi-cancer)
-* Place the dataset in the `model/Multiple_Types_of_Cancer/train/` directory
+* The shipped `dataset/train` and `dataset/test` folders already contain the four
+  cancer classes used to train the model - browse them live on the site's **Dataset**
+  page instead of digging through the filesystem.
+* To retrain from scratch, the full source dataset is on
+  [Kaggle - Multi-Cancer Dataset](https://www.kaggle.com/datasets/obulisainaren/multi-cancer).
 
 ---
 
 ## 🚀 How to Run
 
 1. Preprocess the data and split into training/testing sets.
-2. Train the model using `main_alz.ipynb`.
+2. Train the model using `model/main_alz.ipynb`.
 3. Evaluate accuracy and visualize graphs.
-4. Save trained model as `.h5`.
-5. Run the web interface (Flask/Django app) and upload CT/MRI images for real-time classification.
+4. Save the trained model as `.h5`.
+5. From `multiple_types_of_cancer/`, run `python app.py` and open `http://127.0.0.1:5000`
+   to upload CT/MRI images for real-time classification.
 
 ---
 

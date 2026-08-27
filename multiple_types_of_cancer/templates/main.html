@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Multiple Types of Cancer - Mini Project{% endblock %}
+{% block content %}
+
+<section class="hero">
+  <span class="eyebrow">Deep Learning · CT / MRI Imaging</span>
+  <h1>Detecting <span>multiple types of cancer</span> from a single scan</h1>
+  <p>
+    Upload a CT or MRI image and a VGG19-based transfer-learning model, trained with
+    Bayesian hyperparameter optimization and Learning-Without-Forgetting, classifies it
+    across four cancer types in seconds.
+  </p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="{{ url_for('index') }}">Try Detection</a>
+    <a class="btn btn-ghost" href="{{ url_for('dataset') }}">Explore the Dataset</a>
+  </div>
+</section>
+
+<div class="feature-grid animate-in">
+  <div class="glass-card hoverable feature-card fc-brain">
+    <div class="feature-icon">BR</div>
+    <h3>Brain Cancer</h3>
+    <p>Classifies MRI slices for tumor patterns learned from labeled brain scans.</p>
+  </div>
+  <div class="glass-card hoverable feature-card fc-breast">
+    <div class="feature-icon">BC</div>
+    <h3>Breast Cancer</h3>
+    <p>Recognizes malignant vs. benign tissue signatures across breast imaging samples.</p>
+  </div>
+  <div class="glass-card hoverable feature-card fc-cervical">
+    <div class="feature-icon">CX</div>
+    <h3>Cervical Cancer</h3>
+    <p>Trained on cytology-style imagery to flag abnormal cervical cell structures.</p>
+  </div>
+  <div class="glass-card hoverable feature-card fc-lung">
+    <div class="feature-icon">LU</div>
+    <h3>Lung Cancer</h3>
+    <p>Detects nodules and tissue irregularities characteristic of lung carcinoma.</p>
+  </div>
+</div>
+
+<div class="section-head animate-in">
+  <span class="eyebrow">How it works</span>
+  <h2>From upload to prediction in three steps</h2>
+  <p>No sign-up, no friction - the model runs directly in your browser session.</p>
+</div>
+
+<div class="feature-grid animate-in" style="grid-template-columns: repeat(3, 1fr);">
+  <div class="glass-card hoverable feature-card">
+    <div class="feature-icon" style="background:linear-gradient(135deg,#a88fe0,#8a72d6);">1</div>
+    <h3>Upload a scan</h3>
+    <p>Drag &amp; drop a CT/MRI image (JPG, PNG, BMP), or pick a sample straight from the dataset.</p>
+  </div>
+  <div class="glass-card hoverable feature-card">
+    <div class="feature-icon" style="background:linear-gradient(135deg,#7ba3d4,#5f8fc9);">2</div>
+    <h3>Model inference</h3>
+    <p>A fine-tuned VGG19 network scores the image across all four cancer classes.</p>
+  </div>
+  <div class="glass-card hoverable feature-card">
+    <div class="feature-icon" style="background:linear-gradient(135deg,#6fbfae,#4fb3a2);">3</div>
+    <h3>Instant result</h3>
+    <p>See the predicted class with a confidence score and full probability breakdown.</p>
+  </div>
+</div>
+
+{% endblock %}

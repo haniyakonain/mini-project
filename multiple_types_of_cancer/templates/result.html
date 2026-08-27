@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Result - Multiple Types of Cancer{% endblock %}
+{% block content %}
+
+<section class="hero" style="padding-top:60px; padding-bottom:0;">
+  <span class="eyebrow">Analysis Complete</span>
+  <h1>Here's what the <span>model found</span></h1>
+</section>
+
+{% if out_of_domain %}
+<div class="glass-card result-shell animate-in warning-card">
+  <strong>This doesn't look like a CT/MRI scan.</strong>
+  The model was trained only on grayscale-style medical images from four cancer
+  types, and has no "not applicable" option - so it will still produce a
+  confident-sounding number for any picture you give it. Treat the result below
+  as unreliable for this image; upload an actual scan, or try one of the dataset
+  samples on the Detect page, for a meaningful prediction.
+</div>
+{% endif %}
+
+<div class="glass-card result-shell animate-in">
+  <div class="result-grid">
+    <div class="result-image">
+      <img src="{{ img_url }}" alt="Analyzed scan">
+    </div>
+    <div>
+      {% if source_note %}<span class="source-badge">{{ source_note }}</span><br>{% endif %}
+      <div class="result-label">Predicted class</div>
+      <div class="result-title">{{ prediction }}</div>
+
+      <div class="confidence-value">{{ probabilities }}% confidence</div>
+      <div class="confidence-bar">
+        <div class="confidence-fill" data-fill="{{ probabilities }}"></div>
+      </div>
+
+      <div class="breakdown">
+        {% for label, value in breakdown.items() %}
+        <div class="breakdown-row">
+          <span>{{ label }}</span>
+          <span class="bar"><span class="bar-fill" data-fill="{{ value }}"></span></span>
+          <span>{{ value }}%</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <p class="disclaimer">
+    This is a mini-project research demo, not a certified medical device. Predictions should
+    never be used for real diagnosis - always consult a qualified radiologist or oncologist.
+  </p>
+
+  <div class="hero-actions" style="margin-top: 26px; justify-content:flex-start;">
+    <a class="btn btn-primary" href="{{ url_for('index') }}">Analyze Another</a>
+    <a class="btn btn-ghost" href="{{ url_for('main') }}">Back Home</a>
+  </div>
+</div>
+
+{% endblock %}
