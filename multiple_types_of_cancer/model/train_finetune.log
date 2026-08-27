@@ -1,0 +1,69 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1787847811.836375  505240 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+I0000 00:00:1787847811.877967  505240 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1787847813.126621  505240 cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+E0000 00:00:1787847813.659913  505240 cuda_platform.cc:52] failed call to cuInit: INTERNAL: CUDA error: Failed call to cuInit: UNKNOWN ERROR (303)
+/home/home/mini-project/multiple_types_of_cancer/.venv/lib/python3.13/site-packages/keras/src/trainers/epoch_iterator.py:74: UserWarning: `shuffle=True` was passed, but will be ignored since the data `x` was provided as a tf.data.Dataset. The Dataset is expected to already be shuffled (via `.shuffle(buffer_size)`).
+  self.data_adapter = data_adapters.get_data_adapter(
+Real-class training samples: 935 (holding out 164 real scans, never trained on, as the genuine test set)
+Not-scan training samples:   271 (holding out 67 for validation)
+Class counts (train split): {0: 91, 1: 539, 2: 47, 3: 174, 4: 235}
+Class weights: {0: np.float64(2.39), 1: np.float64(0.4), 2: np.float64(4.62), 3: np.float64(1.25), 4: np.float64(0.92)}
+
+=== Phase 1: training head only (backbone frozen) ===
+Epoch 1/10
+68/68 - 79s - 1s/step - accuracy: 0.9687 - loss: 0.7871 - val_accuracy: 1.0000 - val_loss: 3.2106e-04
+Epoch 2/10
+68/68 - 88s - 1s/step - accuracy: 0.9991 - loss: 0.0043 - val_accuracy: 1.0000 - val_loss: 2.1485e-06
+Epoch 3/10
+68/68 - 90s - 1s/step - accuracy: 0.9991 - loss: 0.0101 - val_accuracy: 1.0000 - val_loss: 2.1932e-06
+Epoch 4/10
+68/68 - 86s - 1s/step - accuracy: 0.9991 - loss: 0.0128 - val_accuracy: 1.0000 - val_loss: 3.3974e-07
+Epoch 5/10
+68/68 - 86s - 1s/step - accuracy: 0.9954 - loss: 0.1320 - val_accuracy: 0.9917 - val_loss: 0.0125
+Epoch 6/10
+68/68 - 82s - 1s/step - accuracy: 0.9982 - loss: 0.0078 - val_accuracy: 1.0000 - val_loss: 1.9868e-09
+Epoch 7/10
+68/68 - 85s - 1s/step - accuracy: 1.0000 - loss: 7.8600e-10 - val_accuracy: 1.0000 - val_loss: 1.9868e-09
+Epoch 8/10
+68/68 - 88s - 1s/step - accuracy: 1.0000 - loss: 1.4995e-05 - val_accuracy: 1.0000 - val_loss: 1.9868e-09
+Epoch 9/10
+68/68 - 88s - 1s/step - accuracy: 1.0000 - loss: 0.0000e+00 - val_accuracy: 1.0000 - val_loss: 1.9868e-09
+Epoch 10/10
+68/68 - 86s - 1s/step - accuracy: 1.0000 - loss: 0.0000e+00 - val_accuracy: 1.0000 - val_loss: 1.9868e-09
+Phase 1 done at 859s
+
+=== Phase 2: fine-tuning block5 + head ===
+Epoch 1/20
+68/68 - 118s - 2s/step - accuracy: 1.0000 - loss: 0.0000e+00 - val_accuracy: 1.0000 - val_loss: 1.9868e-09 - learning_rate: 1.0000e-05
+Epoch 2/20
+68/68 - 116s - 2s/step - accuracy: 0.9991 - loss: 0.0186 - val_accuracy: 1.0000 - val_loss: 9.9341e-10 - learning_rate: 1.0000e-05
+Epoch 3/20
+68/68 - 119s - 2s/step - accuracy: 1.0000 - loss: 4.1584e-04 - val_accuracy: 1.0000 - val_loss: 5.0265e-07 - learning_rate: 1.0000e-05
+Epoch 4/20
+68/68 - 118s - 2s/step - accuracy: 1.0000 - loss: 4.2621e-08 - val_accuracy: 1.0000 - val_loss: 8.9406e-08 - learning_rate: 5.0000e-06
+Epoch 5/20
+68/68 - 118s - 2s/step - accuracy: 1.0000 - loss: 2.0065e-06 - val_accuracy: 1.0000 - val_loss: 1.9471e-07 - learning_rate: 5.0000e-06
+Epoch 6/20
+68/68 - 118s - 2s/step - accuracy: 1.0000 - loss: 1.7839e-06 - val_accuracy: 1.0000 - val_loss: 1.7981e-07 - learning_rate: 2.5000e-06
+Epoch 7/20
+68/68 - 116s - 2s/step - accuracy: 1.0000 - loss: 1.7958e-08 - val_accuracy: 1.0000 - val_loss: 1.4206e-07 - learning_rate: 2.5000e-06
+WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+Phase 2 done at 1684s
+
+=== Held-out real test set (4 real classes) ===
+Test accuracy: 99.39%  (loss=0.0417)
+Predicted as "Not a Scan" (should be 0): 0 / 164
+  class 0 (Brain_cance): 17/17 correct
+  class 1 (Breast_cance): 105/105 correct
+  class 2 (Cervical_cancer): 9/9 correct
+  class 3 (Lung_cance): 32/33 correct
+
+=== Held-out NOT-scan validation set (never seen in training) ===
+Not-scan validation accuracy: 100.00%  (loss=0.0004)
+
+Saved fine-tuned model to /home/home/mini-project/multiple_types_of_cancer/Multiple_Types_of_Cancer_vgg19_v3.h5
+Total time: 1713s

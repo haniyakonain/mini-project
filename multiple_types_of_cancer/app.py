@@ -5,29 +5,35 @@ from werkzeug.utils import secure_filename
 
 # Keras / TensorFlow
 from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing import image
-from tensorflow.keras.utils import load_img
 import matplotlib.image as mpimg
+
+from preprocess import load_and_preprocess
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # ---------------------------------------------------------------------------
 # Model
 # ---------------------------------------------------------------------------
-# v2 replaces the original 4-way classifier with a genuine 5th class -
-# "Not a Scan" - trained alongside the four cancer types (see
-# train_negative_class.py / train_head.py). The VGG19 backbone stays frozen
-# exactly as before; only the final layer was retrained, on the original
-# 1,099 real scans plus ~340 non-medical images (real photos - color and
-# grayscale - plus synthetic UI/screenshot mockups). This replaces the
-# pixel-statistics heuristics that used to sit on top of the 4-way model:
-# the network itself now learns what a scan looks like, rather than a
-# hand-tuned saturation/edge/confidence threshold trying to guess it
-# afterwards. Verified: 100% accuracy on all 2,198 real scans (train+test),
-# 100% on held-out non-medical images never seen during training, and every
-# screenshot/photo that fooled the old heuristic system now correctly
-# reads "Not a Scan" at 96-99%+ confidence.
-model_path = os.path.join(BASE_DIR, 'Multiple_Types_of_Cancer_vgg19_v2.h5')
+# v3 replaces v2's frozen-backbone linear head with an actually fine-tuned
+# network (see model/train_finetune.py): the backbone's last conv block
+# (block5) is unfrozen and trained end-to-end at a low learning rate after a
+# head-only warm-up, with real augmentation (flip/rotate/brightness/
+# contrast/crop) and square-padded (not squashed) preprocessing matching
+# what VGG19's ImageNet weights actually expect (see preprocess.py). This
+# targets the root problem with v2: a single linear layer on frozen generic
+# ImageNet features had learned this dataset's specific visual signature
+# (per-class squash artifacts, file-format quirks) rather than real scan
+# content, so it scored perfectly on data from the same narrow source and
+# collapsed to "Not a Scan" on anything else - including genuine unseen
+# scans.
+#
+# Verified on a GENUINE held-out split (15% per class, carved out and
+# excluded from training before training ever started - NOT dataset/test/,
+# which was discovered to be a byte-identical copy of dataset/train/ and so
+# cannot be used for evaluation at all): 99.39% accuracy on 164 held-out
+# real scans (0 misclassified as "Not a Scan"), 100% on held-out negatives
+# never seen during training. See model/train_finetune.log for the full run.
+model_path = os.path.join(BASE_DIR, 'Multiple_Types_of_Cancer_vgg19_v3.h5')
 from keras.losses import CategoricalCrossentropy
 model = load_model(model_path, compile=False)
 model.compile(loss=CategoricalCrossentropy(reduction="sum"), optimizer="adam")
@@ -146,10 +152,11 @@ def symptoms():
 # Prediction
 # ---------------------------------------------------------------------------
 def predictions(img_path, model):
-    img = load_img(img_path, target_size=(176, 208, 3))
-
-    x = image.img_to_array(img)
-    x = x / 255
+    # Shared with training (see preprocess.py) - square-pads instead of
+    # squashing to the target aspect ratio, and applies VGG19's actual
+    # expected ImageNet preprocessing, so inference can never again drift
+    # out of sync with what the model was trained on.
+    x = load_and_preprocess(img_path)
     x = np.expand_dims(x, axis=0)
     y = model.predict(x)
     idx = int(np.argmax(y[0], axis=-1))
