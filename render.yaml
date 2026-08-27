@@ -10,6 +10,6 @@ services:
     healthCheckPath: /
     envVars:
       - key: PYTHON_VERSION
-        value: 3.11.9
+        value: 3.13.1
       - key: PYTHONUNBUFFERED
         value: "1"
