@@ -764,6 +764,23 @@ body {
 
 .warning-card strong { display: block; margin-bottom: 4px; font-size: 1rem; color: #5a3c14; }
 
+.result-title-muted {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--ink-faint);
+  background: none;
+  -webkit-text-fill-color: initial;
+}
+
+.unreliable-note {
+  font-size: 0.88rem;
+  color: var(--ink-faint);
+  line-height: 1.6;
+  max-width: 40ch;
+}
+
+.result-unreliable .result-image img { filter: grayscale(40%) opacity(0.7); }
+
 /* ---------------------------------------------------------------------
    Result page - sample-source badge
    --------------------------------------------------------------------- */

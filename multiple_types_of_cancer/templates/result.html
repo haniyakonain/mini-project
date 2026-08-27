@@ -9,22 +9,31 @@
 
 {% if out_of_domain %}
 <div class="glass-card result-shell animate-in warning-card">
-  <strong>This doesn't look like a CT/MRI scan.</strong>
+  <strong>This doesn't look like a CT/MRI scan - no reliable result.</strong>
   The model was trained only on grayscale-style medical images from four cancer
-  types, and has no "not applicable" option - so it will still produce a
-  confident-sounding number for any picture you give it. Treat the result below
-  as unreliable for this image; upload an actual scan, or try one of the dataset
-  samples on the Detect page, for a meaningful prediction.
+  types, and has no "not applicable" option, so it cannot say "I don't know."
+  Because of that, the number below is deliberately hidden rather than shown as
+  a real result - upload an actual scan, or try one of the dataset samples on
+  the Detect page, to get a meaningful prediction.
 </div>
 {% endif %}
 
-<div class="glass-card result-shell animate-in">
+<div class="glass-card result-shell animate-in{% if out_of_domain %} result-unreliable{% endif %}">
   <div class="result-grid">
     <div class="result-image">
       <img src="{{ img_url }}" alt="Analyzed scan">
     </div>
     <div>
       {% if source_note %}<span class="source-badge">{{ source_note }}</span><br>{% endif %}
+
+      {% if out_of_domain %}
+      <div class="result-label">Result withheld</div>
+      <div class="result-title result-title-muted">Not a recognized scan</div>
+      <p class="unreliable-note">
+        The raw model output isn't shown here because it isn't meaningful for
+        this image - see the warning above.
+      </p>
+      {% else %}
       <div class="result-label">Predicted class</div>
       <div class="result-title">{{ prediction }}</div>
 
@@ -42,6 +51,7 @@
         </div>
         {% endfor %}
       </div>
+      {% endif %}
     </div>
   </div>
 
