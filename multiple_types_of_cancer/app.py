@@ -318,4 +318,9 @@ def predict_sample(slug, filename):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Debug mode (auto-reload + interactive debugger) only when explicitly
+    # requested locally - never on by default, since Werkzeug's debugger
+    # exposes remote code execution if it's ever reachable in production.
+    debug_mode = os.environ.get('FLASK_DEBUG', '0') == '1'
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=debug_mode)

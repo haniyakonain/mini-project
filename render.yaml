@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: multiple-types-of-cancer
+    runtime: python
+    rootDir: multiple_types_of_cancer
+    plan: free
+    region: oregon
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 2 --timeout 120
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: PYTHONUNBUFFERED
+        value: "1"
