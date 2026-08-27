@@ -11,3 +11,9 @@ multiple_types_of_cancer/upload/Screenshot_*
 multiple_types_of_cancer/static/savingimg/Screenshot_*
 multiple_types_of_cancer/upload/back.jpg
 multiple_types_of_cancer/static/savingimg/back.png
+multiple_types_of_cancer/upload/wallpaper.jpg
+multiple_types_of_cancer/static/savingimg/wallpaper.png
+
+# Regenerable training artifacts (re-run model/train_negative_class.py to
+# recreate) - large and derived, not source.
+multiple_types_of_cancer/model/_features_cache.npz

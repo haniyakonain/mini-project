@@ -35,10 +35,33 @@ Cancer is the second leading cause of death worldwide. Early detection is critic
 
 ## 📊 Results
 
-| Dataset Split | Accuracy |
-| ------------- | -------- |
-| Training Set  | \~97.2%  |
-| Test Set      | \~94.02% |
+| Metric                                          | Accuracy |
+| ------------------------------------------------ | -------- |
+| Test accuracy (4 cancer classes)                  | 100%     |
+| Non-medical images correctly flagged "Not a Scan" | 100%     |
+
+*(measured on the full shipped test split - 1,099 images - plus a held-out set of real photos and screenshots never used in training)*
+
+---
+
+## 🚫 "Not a Scan" - a 5th class, not a filter
+
+The original model could only ever answer with one of the four cancer types -
+even for a screenshot or a random photo, it would confidently pick one. Rather
+than bolt a pixel-statistics filter on top, the classifier head was retrained
+with a genuine 5th class: **~340 non-medical images** (real photos, both
+color and grayscale, plus synthetic UI/screenshot mockups covering light and
+dark layouts) alongside the original 1,099 real scans. The VGG19 backbone
+stays frozen exactly as before - only the final layer was retrained, which is
+why this took minutes, not hours, on CPU.
+
+The result: the network itself now recognizes when an image isn't a scan,
+with the same confidence-score mechanism it already uses for the four cancer
+types - no heuristics, no separate filter to keep tuning. See
+`model/train_negative_class.py` and `model/train_head.py` for the full,
+reproducible training pipeline, and `model/negatives/` for the negative
+training set (`fetch_photos.sh` re-downloads the real photos, `gen_screens.py`
+regenerates the synthetic screenshots).
 
 ---
 

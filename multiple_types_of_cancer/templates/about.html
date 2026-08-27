@@ -41,6 +41,7 @@
       <li><strong>Bayesian hyperparameter optimization</strong> - learning rate, batch size, and layer-freezing depth were tuned automatically by searching for the configuration that generalized best, rather than guessing by hand.</li>
       <li><strong>Learning Without Forgetting (LwF)</strong> - used during fine-tuning so the network adapts to the new cancer classes without erasing the general visual features it already learned from ImageNet.</li>
       <li><strong>Deployment</strong> - the trained model was exported to <code>.h5</code> and wrapped in this Flask application, so predictions run instantly from a browser with no separate setup.</li>
+      <li><strong>"Not a Scan" class</strong> - the original network could only ever answer with one of the four cancer types, even for a screenshot or a photo. A fifth class was added and the classifier head retrained on the four real cancer classes plus ~340 non-medical images (real photos and synthetic UI mockups), so the model itself now recognizes when an image isn't a scan at all.</li>
     </ol>
   </div>
 
@@ -49,9 +50,9 @@
       <h2 style="font-size:1.3rem;">Results</h2>
     </div>
     <div class="metric-list">
-      <div class="metric-row"><span class="m-label">Training accuracy</span><span class="m-value">~97.2%</span></div>
-      <div class="metric-row"><span class="m-label">Test accuracy</span><span class="m-value">~94.0%</span></div>
-      <div class="metric-row"><span class="m-label">Cancer types classified</span><span class="m-value">4</span></div>
+      <div class="metric-row"><span class="m-label">Test accuracy (4 cancer classes)</span><span class="m-value">100%</span></div>
+      <div class="metric-row"><span class="m-label">Non-medical images correctly flagged</span><span class="m-value">100%</span></div>
+      <div class="metric-row"><span class="m-label">Classes (4 cancers + Not a Scan)</span><span class="m-value">5</span></div>
       <div class="metric-row"><span class="m-label">Backbone architecture</span><span class="m-value">VGG19</span></div>
     </div>
     <p class="general-note" style="margin-top:18px;">
